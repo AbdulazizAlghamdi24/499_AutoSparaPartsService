@@ -2,18 +2,24 @@ package com.example.sparepart2.Registration;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.example.sparepart2.IntroActivity;
 import com.example.sparepart2.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,18 +31,72 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 
 
 public class LoginPage extends AppCompatActivity {
-    private EditText etEmail;
-    private EditText etPassword;
-    private Button btnLogin;
+
+    private TextInputLayout emailTextInput;
+    private TextInputLayout passwordTextInput;
+    private Button loginButton;
+    private TextView signUpTextView;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String IS_LOGGED_IN = "isLoggedIn";
+    public static final String USER_ID = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView signUpTextView = findViewById(R.id.signUpTextView);
+
+        try {
+            checkBox();
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // Initialize the views
+        emailTextInput = findViewById(R.id.Email);
+        passwordTextInput = findViewById(R.id.Password);
+        loginButton = findViewById(R.id.LoginButton);
+        signUpTextView = findViewById(R.id.signUpTextView);
+
+        // Set the click listener for the login button
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the user input from the TextInputLayout fields
+                String email = emailTextInput.getEditText() != null ? emailTextInput.getEditText().getText().toString().trim() : "";
+                String password = passwordTextInput.getEditText() != null ? passwordTextInput.getEditText().getText().toString().trim() : "";
+
+                // Perform input validations
+                if (TextUtils.isEmpty(email)) {
+                    emailTextInput.setError("Email is required");
+                    emailTextInput.requestFocus();
+                    return;
+                }
+
+                // Validate email format using a regular expression
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                if (!email.matches(emailPattern)) {
+                    emailTextInput.setError("Invalid email format");
+                    emailTextInput.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    passwordTextInput.setError("Password is required");
+                    passwordTextInput.requestFocus();
+                    return;
+                }
+
+                // If all validations pass, proceed with the login process
+                LoginTask loginTask = new LoginTask();
+                loginTask.execute(email, password);
+            }
+        });
+
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,52 +106,37 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        // Initialize the views
-        etEmail = findViewById(R.id.Email);
-        etPassword = findViewById(R.id.Password);
-        btnLogin = findViewById(R.id.LoginButton);
+    private void checkBox() throws GeneralSecurityException, IOException {
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
 
-        // Set the click listener for the login button
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Retrieve the user input from the EditText fields
-                String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString();
+        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                SHARED_PREFS,
+                masterKeyAlias,
+                this,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
 
-                // Perform input validations
-                if (email.isEmpty()) {
-                    etEmail.setError("Email is required");
-                    etEmail.requestFocus();
-                    return;
-                }
-
-                // Validate email format using a regular expression
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                if (!email.matches(emailPattern)) {
-                    etEmail.setError("Invalid email format");
-                    etEmail.requestFocus();
-                    return;
-                }
-
-                if (password.isEmpty()) {
-                    etPassword.setError("Password is required");
-                    etPassword.requestFocus();
-                    return;
-                }
-
-                // If all validations pass, proceed with login process
-                LoginTask loginTask = new LoginTask();
-                loginTask.execute(email, password);
-            }
-        });
+        boolean isLoggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN, false);
+        String userId = sharedPreferences.getString(USER_ID, "0");
+        if (isLoggedIn) {
+            Intent intent = new Intent(LoginPage.this, IntroActivity.class);
+            intent.putExtra("id", userId);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private class LoginTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            // Create a JSON object with the login credentials
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("email", params[0]);
@@ -100,7 +145,6 @@ public class LoginPage extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // Make an HTTP request to the PHP server
             String loginUrl = "http://192.168.0.248/499_spareparts/login.php";
             HttpURLConnection urlConnection = null;
             try {
@@ -116,7 +160,6 @@ public class LoginPage extends AppCompatActivity {
 
                 int responseCode = urlConnection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    // Read the response from the server
                     InputStream inputStream = urlConnection.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                     StringBuilder response = new StringBuilder();
@@ -144,12 +187,9 @@ public class LoginPage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             if (response != null) {
-                // Trim the response string to remove leading/trailing whitespace
                 response = response.trim();
 
-                // Check if the response starts with unwanted characters
                 while (response.charAt(0) != '{' && response.length() > 1) {
-                    // Remove the first character from the response string
                     response = response.substring(1);
                 }
 
@@ -157,23 +197,39 @@ public class LoginPage extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     String message = jsonResponse.getString("message");
 
-                    // Display the response message to the user
                     Toast.makeText(LoginPage.this, message, Toast.LENGTH_SHORT).show();
 
-                    // Check if the registration was successful
                     if (message.equals("Login successful.")) {
-                        // Start the desired activity after successful registration
+                        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+                        JSONObject userJson = jsonResponse.getJSONObject("user");
+                        String userId = userJson.getString("id");
+                        String username = userJson.getString("username");
+                        String email = userJson.getString("email");
+
+
+
+                        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                                SHARED_PREFS,
+                                masterKeyAlias,
+                                LoginPage.this,
+                                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                        );
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(IS_LOGGED_IN, true);
+                        editor.putString(USER_ID, userId); // Save the user ID using the constant
+                        editor.apply();
+
                         Intent intent = new Intent(LoginPage.this, IntroActivity.class);
                         startActivity(intent);
-                        finish(); // Optional: Close the SignUpActivity so that pressing the back button won't bring it back
+                        finish();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | GeneralSecurityException | IOException e) {
                     e.printStackTrace();
-                    // Handle JSON parsing error
                     Toast.makeText(LoginPage.this, "Error parsing JSON response: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // Handle null response error
                 Toast.makeText(LoginPage.this, "Null response received", Toast.LENGTH_SHORT).show();
             }
         }

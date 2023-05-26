@@ -1,55 +1,70 @@
 package com.example.sparepart2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sparepart2.Registration.LoginPage;
+import com.example.sparepart2.bottomNav.BottomNavigationHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Settings extends AppCompatActivity {
 
 
-    BottomNavigationView bottom_nav;
+    private Button LogOut;
+    public static final String SHARED_PREFS = "sharedPrefs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
 
-        bottom_nav = findViewById(R.id.bottom_nav);
 
-        bottom_nav.setSelectedItemId(R.id.settings);
+        LogOut = findViewById(R.id.logout_button);
 
-        bottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public void onClick(View v) {
+                new AlertDialog.Builder(Settings.this)
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Clear all shared preferences
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.apply();
 
-                switch (item.getItemId()){
-
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-
-                    case R.id.settings:
-                        return true;
-
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                }
-                return false;
+                                Intent intent = new Intent(getApplicationContext(), LoginPage.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
-
-
-
     }
 }
+
+
+
+
+
+
+
+

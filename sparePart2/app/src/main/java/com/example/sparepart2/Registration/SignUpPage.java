@@ -2,6 +2,7 @@ package com.example.sparepart2.Registration;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,12 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 
 import com.example.sparepart2.IntroActivity;
 import com.example.sparepart2.MainActivity;
 import com.example.sparepart2.R;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import org.json.JSONException;
@@ -33,12 +38,16 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.GeneralSecurityException;
 
 
 public class SignUpPage extends AppCompatActivity {
-    private EditText usernameEditText, emailEditText, passwordEditText, phoneEditText;
+    private TextInputLayout usernameEditText, emailEditText, passwordEditText, phoneEditText;
     private TextView LoginTextview;
     private Button signUpButton;
+
+    private SharedPreferences sharedPreferences;
+    private String masterKeyAlias = null;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,6 +55,25 @@ public class SignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    LoginPage.SHARED_PREFS,
+                    masterKeyAlias,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         LoginTextview = findViewById(R.id.LoginTextview);
         LoginTextview.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +94,11 @@ public class SignUpPage extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                String phone = phoneEditText.getText().toString();
+                String username = usernameEditText.getEditText().getText().toString();
+                String email = emailEditText.getEditText().getText().toString();
+                String password = passwordEditText.getEditText().getText().toString();
+                String phone = phoneEditText.getEditText().getText().toString();
+
 
                 if (username.isEmpty()) {
                     usernameEditText.setError("Username is required");
@@ -110,9 +139,10 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-                // Check if phone number length is not 9 digits
-                if (phone.length() != 9) {
-                    phoneEditText.setError("Phone number should be 9 digits");
+                // Validate phone number format using a regular expression for Saudi numbers
+                String phonePattern = "^\\+9665\\d{8}$";
+                if (!phone.matches(phonePattern)) {
+                    phoneEditText.setError("Invalid Saudi phone number. Must be in format +9665XXXXXXXX");
                     phoneEditText.requestFocus();
                     return;
                 }
@@ -126,7 +156,6 @@ public class SignUpPage extends AppCompatActivity {
             }
         });
     }
-
     private class SignupTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -196,6 +225,12 @@ public class SignUpPage extends AppCompatActivity {
 
                     // Check if the registration was successful
                     if (message.equals("User registration successful.")) {
+                        // Save user id to shared preferences
+                        String userId = jsonResponse.getString("id");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(LoginPage.USER_ID, userId);
+                        editor.apply();
+
                         // Start the desired activity after successful registration
                         Intent intent = new Intent(SignUpPage.this, IntroActivity.class);
                         startActivity(intent);
@@ -213,5 +248,6 @@ public class SignUpPage extends AppCompatActivity {
         }
     }
 }
+
 
 
