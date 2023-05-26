@@ -43,6 +43,8 @@ public class LoginPage extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IS_LOGGED_IN = "isLoggedIn";
     public static final String USER_ID = "id";
+    public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +220,9 @@ public class LoginPage extends AppCompatActivity {
                         );
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(IS_LOGGED_IN, true);
-                        editor.putString(USER_ID, userId); // Save the user ID using the constant
+                        editor.putString(USER_ID, userId);
+                        editor.putString(USERNAME, username);  // Save username
+                        editor.putString(EMAIL, email);  // Save email
                         editor.apply();
 
                         Intent intent = new Intent(LoginPage.this, IntroActivity.class);
