@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sparepart2.OrderHandling.Ongoing_Orders;
+
+import com.example.sparepart2.Order_Status.Current_User_Order;
+import com.example.sparepart2.Order_Status.Ongoing_Orders;
 import com.example.sparepart2.OrderHandling.OrderPage;
 import com.example.sparepart2.Recogniton.Damage;
 import com.example.sparepart2.bottomNav.BottomNavigationHelper;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 101;
     private ImageButton CreateOrderbtn;
     private ImageButton ShowOrderbtn;
+
+    private ImageButton current_userbtn;
     private Button Api_recognizer;
 
     @Override
@@ -57,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
         CreateOrderbtn = findViewById(R.id.create_order_btn);
         ShowOrderbtn = findViewById(R.id.show_order_btn);
+        current_userbtn = findViewById(R.id.current_user_btn);
 
         Api_recognizer = findViewById(R.id.Api_recognizer);
 
         CreateOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OrderPage.class)));
         ShowOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Ongoing_Orders.class)));
+        current_userbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Current_User_Order.class)));
 
         Api_recognizer.setOnClickListener(new View.OnClickListener() {
             @Override
