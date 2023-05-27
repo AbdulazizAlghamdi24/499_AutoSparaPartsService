@@ -8,11 +8,13 @@ $data = json_decode(file_get_contents("php://input"), true);
 // Perform data validation and sanitization
 
 // Check if the required fields are valid
-if (isset($data['username']) && isset($data['email']) && isset($data['password']) && isset($data['phone_number'])) {
+if (isset($data['username']) && isset($data['email']) && isset($data['password']) && isset($data['phone_number']) && isset($data['location'])) {
     $username = $data['username'];
     $email = $data['email'];
     $password = $data['password'];
     $phone_number = $data['phone_number'];
+    $location = $data['location'];
+
 
 } else {
     // Invalid request, missing required fields
@@ -50,8 +52,8 @@ if ($user) {
     ];
 } else {
     // Insert the new user into the database
-    $stmt = $pdo->prepare("INSERT INTO users (username, email, password, phone_number) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$data['username'], $data['email'], password_hash($data['password'], PASSWORD_DEFAULT), $data['phone_number']]);
+    $stmt = $pdo->prepare("INSERT INTO users (username, email, password, phone_number , location) VALUES (?, ?, ?, ? , ?)");
+    $stmt->execute([$data['username'], $data['email'], password_hash($data['password'], PASSWORD_DEFAULT), $data['phone_number'], $data['location']]);
 
     // Get last inserted ID
     $last_id = $pdo->lastInsertId();

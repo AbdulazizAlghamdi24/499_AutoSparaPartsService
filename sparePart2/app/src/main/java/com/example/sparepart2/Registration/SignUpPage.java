@@ -15,6 +15,7 @@ import androidx.security.crypto.MasterKeys;
 
 import com.example.sparepart2.Apis.SignUpApi;
 import com.example.sparepart2.IntroActivity;
+import com.example.sparepart2.LocationActivity;
 import com.example.sparepart2.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -42,7 +43,7 @@ public class SignUpPage extends AppCompatActivity {
 
         LoginTextview = findViewById(R.id.LoginTextview);
 
-        LoginTextview.setOnClickListener(v -> startActivity(new Intent(SignUpPage.this, LoginPage.class)));
+        LoginTextview.setOnClickListener(v -> startActivity(new Intent(SignUpPage.this, LocationActivity.class)));
 
 
         try {
