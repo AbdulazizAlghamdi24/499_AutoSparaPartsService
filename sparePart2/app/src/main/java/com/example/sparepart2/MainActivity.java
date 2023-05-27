@@ -1,5 +1,6 @@
 package com.example.sparepart2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton ShowOrderbtn;
 
     private ImageButton current_userbtn;
-    private Button Api_recognizer;
 
+    private ImageButton Api_recognizer;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         ShowOrderbtn = findViewById(R.id.show_order_btn);
         current_userbtn = findViewById(R.id.current_user_btn);
 
-        Api_recognizer = findViewById(R.id.Api_recognizer);
+        Api_recognizer = findViewById(R.id.Api_reco);
 
         CreateOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OrderPage.class)));
         ShowOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Ongoing_Orders.class)));

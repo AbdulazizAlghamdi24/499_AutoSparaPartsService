@@ -50,6 +50,7 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
+
     <ImageButton
         android:id="@+id/current_user_btn"
         android:layout_width="150dp"
@@ -74,21 +75,41 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/Api_recognizer"
+
+
+
+
+    <ImageButton
+        android:id="@+id/Api_reco"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="360dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/dmg" />
+
+    <TextView
+        android:id="@+id/Api_reco_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_nav"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
-        android:text="take a photo"
-        android:textColor="@color/white"
-        android:background="@drawable/button_background" />
+        android:layout_below="@id/Api_reco"
+        android:layout_alignStart="@id/create_order_btn"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="27dp"
+        android:text="Damage Detection"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
 
 
-        />
+
+
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

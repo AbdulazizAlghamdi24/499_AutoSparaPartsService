@@ -2,28 +2,27 @@ package com.example.sparepart2.Order_Status;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.example.sparepart2.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class OrderDetails extends AppCompatActivity {
 
+    private ImageButton chatButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+
+        chatButton = findViewById(R.id.chatButton);
+
+
+
+
 
         TextView orderIdTextView = findViewById(R.id.orderIdTextView);
         TextView carTypeTextView = findViewById(R.id.carTypeTextView);
