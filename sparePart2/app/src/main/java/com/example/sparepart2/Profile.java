@@ -3,6 +3,7 @@ package com.example.sparepart2;
 
 import static com.example.sparepart2.Settings.SHARED_PREFS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,13 +41,14 @@ public class Profile extends AppCompatActivity {
     private ImageView profileImg;
     private StorageReference storageReference;  // Firebase storage reference
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
+        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        //BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
 
         // Initialize views
         usernameTextView = findViewById(R.id.profile_name);
