@@ -55,6 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView userPhoneNumberTextView;
 
         private TextView carYearTextView;
+        private TextView carModelTextView;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +67,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderTimeTextView = itemView.findViewById(R.id.orderTimeTextView);
             orderStatusTextView = itemView.findViewById(R.id.orderStatusTextView);
             userPhoneNumberTextView = itemView.findViewById(R.id.userPhoneNumberTextView);
+            carModelTextView = itemView.findViewById(R.id.carModelTextView);
 
 
             itemView.setOnClickListener(this);
@@ -75,6 +77,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public void bind(Order order) {
             orderIdTextView.setText("Order num: "+order.getOrderId());
             carTypeTextView.setText("Car Type:  "+order.getCarType());
+            carModelTextView.setText("Car Model:  "+order.getCarModel());
             carYearTextView.setText("Car Year:  "+order.getCarYear());
             sparePartTextView.setText("Wanted Spare Part:  "+order.getSparePart());
             priceRangeTextView.setText("Price Range:  "+order.getPriceRange());

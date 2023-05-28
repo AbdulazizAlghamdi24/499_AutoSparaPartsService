@@ -23,7 +23,7 @@ public class RecoDetailsPage extends AppCompatActivity {
         resultText = findViewById(R.id.result_text);
 
         String apiResult = getIntent().getStringExtra("apiResult");
-        String imageUrl = getIntent().getStringExtra("imageUrl");
+        String imageUrl = getIntent().getStringExtra("outputUrl");
 
         resultText.setText(apiResult);
 

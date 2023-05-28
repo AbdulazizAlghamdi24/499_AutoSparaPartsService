@@ -160,7 +160,7 @@ public class SignUpPage extends AppCompatActivity {
 
             try {
                 // Set up the connection to the PHP file
-                URL url = new URL("http://192.168.0.248/499_spareparts/signup.php");
+                URL url = new URL("https://spare-parts-php.herokuapp.com/signup.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");

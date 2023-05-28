@@ -156,7 +156,7 @@ public class OrderPage extends AppCompatActivity {
 
             try {
                 // Set up the connection to the PHP file
-                URL url = new URL("http://192.168.0.248/499_spareparts/create_order.php");
+                URL url = new URL("https://spare-parts-php.herokuapp.com/create_order.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");

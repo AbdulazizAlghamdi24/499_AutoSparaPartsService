@@ -149,7 +149,7 @@ public class LoginPage extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String loginUrl = "http://192.168.0.248/499_spareparts/login.php";
+            String loginUrl = "https://spare-parts-php.herokuapp.com/login.php";
             HttpURLConnection urlConnection = null;
             try {
                 URL url = new URL(loginUrl);

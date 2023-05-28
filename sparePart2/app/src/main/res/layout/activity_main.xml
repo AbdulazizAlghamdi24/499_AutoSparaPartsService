@@ -26,10 +26,10 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/amazonDesc"
-            android:text="Choose one "
+            android:id="@+id/username"
+            android:text=""
             android:textSize="14sp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="25dp"
             android:textColor="@color/purple_500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_view"

@@ -83,7 +83,7 @@ public class Current_User_Order extends AppCompatActivity {
                 requestData.put("user_id", userId);
 
                 // Create connection and send the POST request
-                URL url = new URL("http://192.168.0.248/499_spareparts/user_orders.php");
+                URL url = new URL("https://spare-parts-php.herokuapp.com/user_orders.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
@@ -139,12 +139,13 @@ public class Current_User_Order extends AppCompatActivity {
                             JSONObject orderObject = ordersArray.getJSONObject(i);
                             String orderId = orderObject.getString("id");
                             String carType = orderObject.getString("type");
+                            String CarModel = orderObject.getString("model");
                             String sparePart = orderObject.getString("spare_part");
                             String CarYear = orderObject.getString("year");
                             String priceRange = orderObject.getString("price_range");
                             String orderTime = orderObject.getString("created_at");
                             String orderStatus = orderObject.getString("status");
-                            Order order = new Order("", carType, CarYear, sparePart, priceRange, orderTime, orderStatus, "");
+                            Order order = new Order("", carType,CarModel, CarYear, sparePart, priceRange, orderTime, orderStatus, "");
                             orders.add(order);
                         }
 
@@ -157,6 +158,7 @@ public class Current_User_Order extends AppCompatActivity {
                                 Intent intent = new Intent(Current_User_Order.this, OrderDetails_user.class);
                                 intent.putExtra("orderId", order.getOrderId());
                                 intent.putExtra("carType", order.getCarType());
+                                intent.putExtra("CarModel",order.getCarModel());
                                 intent.putExtra("CarYear",order.getCarYear());
                                 intent.putExtra("sparePart", order.getSparePart());
                                 intent.putExtra("priceRange", order.getPriceRange());

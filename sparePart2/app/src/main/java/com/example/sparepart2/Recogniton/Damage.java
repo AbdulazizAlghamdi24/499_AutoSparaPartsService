@@ -4,13 +4,13 @@ public class Damage {
     private String damageCategory;
     private String damageLocation;
     private double score;
+    private String drawResult; // Assume the API returns a URL
 
-
-    public Damage(String damageCategory, String damageLocation , Double score){
-
-        this.damageCategory = damageLocation;
+    public Damage(String damageCategory, String damageLocation , Double score, String drawResult){
+        this.damageCategory = damageCategory;
         this.damageLocation = damageLocation;
         this.score = score;
+        this.drawResult = drawResult;
     }
 
     public Damage() {
@@ -40,6 +40,15 @@ public class Damage {
     public void setScore(double score) {
         this.score = score;
     }
+
+    public String getDrawResult() {
+        return drawResult;
+    }
+
+    public void setDrawResult(String drawResult) {
+        this.drawResult = drawResult;
+    }
 }
+
 
 
