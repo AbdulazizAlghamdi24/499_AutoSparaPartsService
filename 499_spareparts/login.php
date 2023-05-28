@@ -52,7 +52,8 @@ if ($user && password_verify($data['password'], $user['password'])) {
         'user' => [
             'id' => $user['id'],
             'email' => $user['email'],
-            'username' => $user['username']
+            'username' => $user['username'],
+            'phone_number' => $user['phone_number']
         ]
     ];
 } else {
