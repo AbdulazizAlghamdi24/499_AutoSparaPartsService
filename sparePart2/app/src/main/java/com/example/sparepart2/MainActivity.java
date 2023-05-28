@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,12 +47,14 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 101;
-    private ImageButton CreateOrderbtn;
-    private ImageButton ShowOrderbtn;
+    private ImageView CreateOrderbtn;
+    private ImageView ShowOrderbtn;
 
-    private ImageButton current_userbtn;
+    private ImageView current_userbtn;
 
-    private ImageButton Api_recognizer;
+    private ImageView Api_recognizer;
+
+    private ImageView Profile;
 
 
     @SuppressLint("MissingInflatedId")
@@ -60,18 +63,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
+
 
         CreateOrderbtn = findViewById(R.id.create_order_btn);
         ShowOrderbtn = findViewById(R.id.show_order_btn);
         current_userbtn = findViewById(R.id.current_user_btn);
-
+        Profile = findViewById(R.id.Profile);
         Api_recognizer = findViewById(R.id.Api_reco);
+
 
         CreateOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OrderPage.class)));
         ShowOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Ongoing_Orders.class)));
         current_userbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Current_User_Order.class)));
+        Profile.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Profile.class)));
 
         Api_recognizer.setOnClickListener(new View.OnClickListener() {
             @Override

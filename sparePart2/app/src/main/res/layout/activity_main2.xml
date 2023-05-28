@@ -104,11 +104,11 @@
                         android:textColor="@color/purple_500"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/show_order_btn"/>
+                        android:layout_below="@+id/ongoing_btn"/>
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:id="@+id/show_order_btn"
+                        android:id="@+id/ongoing_btn"
                         android:src="@drawable/ongoing"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
@@ -146,11 +146,11 @@
 
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/current_user_btn"/>
+                        android:layout_below="@+id/user_orders_btn"/>
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:id="@+id/current_user_btn"
+                        android:id="@+id/user_orders_btn"
                         android:src="@drawable/userorder"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
@@ -170,17 +170,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/dmg_view"
-                        android:text="Damage Detection"
+                        android:text="Beauty"
                         android:textSize="20sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/Api_reco"/>
+                        android:layout_below="@+id/dmg_btn"/>
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:id="@+id/Api_reco"
+                        android:id="@+id/dmg_btn"
                         android:src="@drawable/dmg"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
@@ -212,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/Chat_view"
-                        android:text="ChatAi"
+                        android:text="Pharmacy"
                         android:textSize="20sp"
                         android:textColor="@color/purple_500"
 
@@ -223,7 +223,6 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/Chat_btn"
-                        android:src="@drawable/chatai"
 
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
@@ -254,16 +253,11 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/Profile"
-                        android:src="@drawable/profileicon"
 
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
