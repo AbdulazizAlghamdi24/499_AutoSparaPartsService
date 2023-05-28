@@ -28,8 +28,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
+
 
 
         LogOut = findViewById(R.id.logout_button);

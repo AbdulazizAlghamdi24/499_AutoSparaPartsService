@@ -23,6 +23,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import com.bumptech.glide.Glide;
+import com.example.sparepart2.OrderHandling.OrderPage;
 import com.example.sparepart2.Registration.LoginPage;
 import com.example.sparepart2.bottomNav.BottomNavigationHelper;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +39,8 @@ import java.security.GeneralSecurityException;
 public class Profile extends AppCompatActivity {
     private TextView usernameTextView;
     private TextView emailTextView;
+    private  TextView PhoneNumberTextView;
+    private ImageView setting;
     private ImageView profileImg;
     private StorageReference storageReference;  // Firebase storage reference
 
@@ -54,6 +57,10 @@ public class Profile extends AppCompatActivity {
         usernameTextView = findViewById(R.id.profile_name);
         emailTextView = findViewById(R.id.profile_email);
         profileImg = findViewById(R.id.profile_image);
+        PhoneNumberTextView = findViewById(R.id.moblieTxt);
+        setting =findViewById(R.id.setting);
+
+        setting.setOnClickListener(v -> startActivity(new Intent(Profile.this, Settings.class)));
 
         // Initialize Firebase Storage reference
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -80,10 +87,13 @@ public class Profile extends AppCompatActivity {
 
             String username = sharedPreferences.getString(LoginPage.USERNAME, "default_username");
             String email = sharedPreferences.getString(LoginPage.EMAIL, "default_email");
+            String Phone_number = sharedPreferences.getString(LoginPage.Phone_Number,"Default_phone");
 
             // Set the username and email in the TextViews
             usernameTextView.setText(username);
             emailTextView.setText(email);
+            PhoneNumberTextView.setText(Phone_number);
+
 
             // Load the profile image from Firebase Storage
             loadProfileImage(username);

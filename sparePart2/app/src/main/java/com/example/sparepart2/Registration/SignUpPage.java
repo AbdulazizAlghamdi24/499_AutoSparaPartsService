@@ -40,6 +40,7 @@ public class SignUpPage extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String masterKeyAlias = null;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,10 +131,10 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-                // Validate phone number format using a regular expression for Saudi numbers
-                String phonePattern = "^\\+9665\\d{8}$";
+// Validate phone number format using a regular expression for Saudi numbers
+                String phonePattern = "^05\\d{8}$";
                 if (!phone.matches(phonePattern)) {
-                    phoneEditText.setError("Invalid Saudi phone number. Must be in format +9665XXXXXXXX");
+                    phoneEditText.setError("Invalid Saudi phone number. Must be in format 05XXXXXXXX");
                     phoneEditText.requestFocus();
                     return;
                 }
@@ -147,6 +148,7 @@ public class SignUpPage extends AppCompatActivity {
             }
         });
     }
+
     private class SignupTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -198,12 +200,9 @@ public class SignUpPage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             if (response != null) {
-                // Trim the response string to remove leading/trailing whitespace
                 response = response.trim();
 
-                // Check if the response starts with unwanted characters
                 while (response.charAt(0) != '{' && response.length() > 1) {
-                    // Remove the first character from the response string
                     response = response.substring(1);
                 }
 
@@ -211,29 +210,41 @@ public class SignUpPage extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     String message = jsonResponse.getString("message");
 
-                    // Display the response message to the user
                     Toast.makeText(SignUpPage.this, message, Toast.LENGTH_SHORT).show();
 
-                    // Check if the registration was successful
                     if (message.equals("User registration successful.")) {
-                        // Save user id to shared preferences
-                        String userId = jsonResponse.getString("id");
+                        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+                        JSONObject userJson = jsonResponse.getJSONObject("user");
+                        String userId = userJson.getString("id");
+                        String username = userJson.getString("username");
+                        String email = userJson.getString("email");
+                        String phone_number = userJson.getString("phone_number");
+
+                        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                                LoginPage.SHARED_PREFS,
+                                masterKeyAlias,
+                                SignUpPage.this,
+                                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                        );
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(LoginPage.IS_LOGGED_IN, true);
                         editor.putString(LoginPage.USER_ID, userId);
+                        editor.putString(LoginPage.USERNAME, username);  // Save username
+                        editor.putString(LoginPage.EMAIL, email);  // Save email
+                        editor.putString(LoginPage.Phone_Number, phone_number);  // Save phone number
                         editor.apply();
 
-                        // Start the desired activity after successful registration
                         Intent intent = new Intent(SignUpPage.this, IntroActivity.class);
                         startActivity(intent);
-                        finish(); // Optional: Close the SignUpActivity so that pressing the back button won't bring it back
+                        finish();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | GeneralSecurityException | IOException e) {
                     e.printStackTrace();
-                    // Handle JSON parsing error
                     Toast.makeText(SignUpPage.this, "Error parsing JSON response: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // Handle null response error
                 Toast.makeText(SignUpPage.this, "Null response received", Toast.LENGTH_SHORT).show();
             }
         }

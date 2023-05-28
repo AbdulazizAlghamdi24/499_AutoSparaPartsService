@@ -19,6 +19,11 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/carYearTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
         android:id="@+id/sparePartTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

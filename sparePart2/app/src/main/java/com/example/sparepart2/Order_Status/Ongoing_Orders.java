@@ -96,11 +96,12 @@ public class Ongoing_Orders extends AppCompatActivity {
                             String orderId = orderObject.getString("id");
                             String carType = orderObject.getString("type");
                             String sparePart = orderObject.getString("spare_part");
+                            String CarYear = orderObject.getString("year");
                             String priceRange = orderObject.getString("price_range");
                             String orderTime = orderObject.getString("created_at");
                             String orderStatus = orderObject.getString("status");
                             String userPhoneNumber = orderObject.getString("phone_number");
-                            Order order = new Order(orderId, carType, sparePart, priceRange, orderTime, orderStatus, userPhoneNumber);
+                            Order order = new Order(orderId, carType, CarYear, sparePart, priceRange, orderTime, orderStatus, userPhoneNumber);
                             orders.add(order);
                         }
 
@@ -113,6 +114,7 @@ public class Ongoing_Orders extends AppCompatActivity {
                                 Intent intent = new Intent(Ongoing_Orders.this, OrderDetails.class);
                                 intent.putExtra("orderId", order.getOrderId());
                                 intent.putExtra("carType", order.getCarType());
+                                intent.putExtra("CarYear", order.getCarYear());
                                 intent.putExtra("sparePart", order.getSparePart());
                                 intent.putExtra("priceRange", order.getPriceRange());
                                 intent.putExtra("orderTime", order.getOrderTime());

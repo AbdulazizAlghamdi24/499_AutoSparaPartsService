@@ -1,6 +1,7 @@
 package com.example.sparepart2.OrderHandling;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -13,11 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 
+import com.example.sparepart2.MainActivity;
 import com.example.sparepart2.Profile;
 import com.example.sparepart2.R;
 import com.example.sparepart2.Registration.LoginPage;
@@ -40,7 +43,6 @@ public class OrderPage extends AppCompatActivity {
 
     private EditText car_manufacture, type, model, year, spare_parts, extra_details, price_range;
     private Button createOrderButton;
-
     private SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
@@ -49,8 +51,7 @@ public class OrderPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        BottomNavigationHelper.setupBottomNavigation(bottomNavigationView, this);
+
 
         String masterKeyAlias = null;
         try {
@@ -59,7 +60,6 @@ public class OrderPage extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Retrieve user id from encrypted shared preferences
         try {
             sharedPreferences = EncryptedSharedPreferences.create(
                     LoginPage.SHARED_PREFS,
@@ -74,7 +74,6 @@ public class OrderPage extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        // Initialize views
         car_manufacture = findViewById(R.id.car_manufacture);
         type = findViewById(R.id.type);
         model = findViewById(R.id.model);
@@ -83,7 +82,6 @@ public class OrderPage extends AppCompatActivity {
         extra_details = findViewById(R.id.extra_details);
         price_range = findViewById(R.id.price_range);
         createOrderButton = findViewById(R.id.createOrderButton);
-
         // Handle "Create Order" button click
         createOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,20 +214,34 @@ public class OrderPage extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     String message = jsonResponse.getString("message");
 
-                    // Display the response message to the user
-                    Toast.makeText(OrderPage.this, message, Toast.LENGTH_SHORT).show();
-
-                    // Check if the order submission was successful
+                    if (message.equals("Order created successfully.")) { // Modify this to match the exact success message from your server
+                        showSuccessDialog(message);
+                    } else {
+                        Toast.makeText(OrderPage.this, message, Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    // Handle JSON parsing error
                     Toast.makeText(OrderPage.this, "Error parsing JSON response: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // Handle null response error
                 Toast.makeText(OrderPage.this, "Null response received", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void showSuccessDialog(String message) {
+        new AlertDialog.Builder(OrderPage.this)
+                .setTitle("Success")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(OrderPage.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

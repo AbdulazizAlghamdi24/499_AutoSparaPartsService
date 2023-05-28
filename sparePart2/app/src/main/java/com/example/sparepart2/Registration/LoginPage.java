@@ -46,6 +46,8 @@ public class LoginPage extends AppCompatActivity {
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
 
+    public static final String Phone_Number = "phone_number";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,6 +210,7 @@ public class LoginPage extends AppCompatActivity {
                         String userId = userJson.getString("id");
                         String username = userJson.getString("username");
                         String email = userJson.getString("email");
+                        String phone_number = userJson.getString("phone_number");
 
 
 
@@ -223,6 +226,7 @@ public class LoginPage extends AppCompatActivity {
                         editor.putString(USER_ID, userId);
                         editor.putString(USERNAME, username);  // Save username
                         editor.putString(EMAIL, email);  // Save email
+                        editor.putString(Phone_Number,phone_number);
                         editor.apply();
 
                         Intent intent = new Intent(LoginPage.this, IntroActivity.class);

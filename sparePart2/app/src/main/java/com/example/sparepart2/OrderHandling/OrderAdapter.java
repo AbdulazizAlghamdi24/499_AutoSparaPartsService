@@ -1,6 +1,7 @@
 package com.example.sparepart2.OrderHandling;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView orderStatusTextView;
         private TextView userPhoneNumberTextView;
 
+        private TextView carYearTextView;
+
         public OrderViewHolder(View itemView) {
             super(itemView);
             orderIdTextView = itemView.findViewById(R.id.orderIdTextView);
             carTypeTextView = itemView.findViewById(R.id.carTypeTextView);
+            carYearTextView = itemView.findViewById(R.id.carYearTextView);
             sparePartTextView = itemView.findViewById(R.id.sparePartTextView);
             priceRangeTextView = itemView.findViewById(R.id.priceRangeTextView);
             orderTimeTextView = itemView.findViewById(R.id.orderTimeTextView);
@@ -67,14 +71,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             itemView.setOnClickListener(this);
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(Order order) {
-            orderIdTextView.setText(order.getOrderId());
-            carTypeTextView.setText(order.getCarType());
-            sparePartTextView.setText(order.getSparePart());
-            priceRangeTextView.setText(order.getPriceRange());
-            orderTimeTextView.setText(order.getOrderTime());
-            orderStatusTextView.setText(order.getOrderStatus());
-            userPhoneNumberTextView.setText(order.getUserPhoneNumber());
+            orderIdTextView.setText("Order num: "+order.getOrderId());
+            carTypeTextView.setText("Car Type:  "+order.getCarType());
+            carYearTextView.setText("Car Year:  "+order.getCarYear());
+            sparePartTextView.setText("Wanted Spare Part:  "+order.getSparePart());
+            priceRangeTextView.setText("Price Range:  "+order.getPriceRange());
+            orderTimeTextView.setText("Order Date:  "+order.getOrderTime());
+            orderStatusTextView.setText("Order Status:  "+order.getOrderStatus());
+            userPhoneNumberTextView.setText("User Phone Number:  "+order.getUserPhoneNumber());
 
         }
 

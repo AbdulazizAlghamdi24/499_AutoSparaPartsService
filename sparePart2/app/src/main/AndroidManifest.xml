@@ -27,7 +27,7 @@
             android:name=".Registration.LoginPage"
             android:exported="false" />
         <activity
-            android:name=".Registration.SignUpPage"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".LocationActivity"
@@ -60,10 +60,7 @@
             android:name=".Profile"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".Registration.SignUpPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
