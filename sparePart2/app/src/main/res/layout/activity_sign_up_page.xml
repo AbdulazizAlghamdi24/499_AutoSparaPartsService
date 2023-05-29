@@ -83,7 +83,7 @@
             android:layout_marginTop="24dp"
             android:text="Sign Up"
             android:textColor="@color/white"
-            android:backgroundTint="@color/black" />
+            android:backgroundTint="@color/purple_500" />
 
         <TextView
             android:id="@+id/LoginTextview"

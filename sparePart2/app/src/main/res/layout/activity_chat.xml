@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatFunction.ChatActivity">
+    tools:context=".ChatHandling.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messagesRecyclerView"
+        android:id="@+id/rvChat"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_above="@+id/sendMessageLayout"
-        android:layout_alignParentTop="true" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llInput"
+        android:padding="10dp" />
 
     <LinearLayout
-        android:id="@+id/sendMessageLayout"
+        android:id="@+id/llInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="10dp">
 
         <EditText
-            android:id="@+id/messageEditText"
+            android:id="@+id/etMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Enter message..." />
+            android:hint="Type your message" />
 
         <Button
-            android:id="@+id/sendButton"
+            android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send" />
+
     </LinearLayout>
+
 </RelativeLayout>

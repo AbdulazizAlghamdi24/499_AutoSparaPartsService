@@ -22,6 +22,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 
+import com.example.sparepart2.ChatHandling.ChatActivity;
 import com.example.sparepart2.Order_Status.Current_User_Order;
 import com.example.sparepart2.Order_Status.Ongoing_Orders;
 import com.example.sparepart2.OrderHandling.OrderPage;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView Api_recognizer;
     private ImageView Profile;
     private TextView usernameTextView;
+    private ImageView Chat_btn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -73,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
         Profile = findViewById(R.id.Profile);
         Api_recognizer = findViewById(R.id.Api_reco);
         usernameTextView = findViewById(R.id.username);
+        Chat_btn = findViewById(R.id.Chat_btn);
 
         CreateOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OrderPage.class)));
         ShowOrderbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Ongoing_Orders.class)));
         current_userbtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Current_User_Order.class)));
         Profile.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Profile.class)));
+        Chat_btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ChatActivity.class)));
 
 
 

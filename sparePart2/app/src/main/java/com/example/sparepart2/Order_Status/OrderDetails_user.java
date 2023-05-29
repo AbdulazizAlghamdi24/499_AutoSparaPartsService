@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sparepart2.R;
 
+
+
 public class OrderDetails_user extends AppCompatActivity {
 
+    private ImageView Cancellbtn , Acceptbtn;
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,9 @@ public class OrderDetails_user extends AppCompatActivity {
         TextView orderTimeTextView = findViewById(R.id.orderTimeTextView);
         TextView orderStatusTextView = findViewById(R.id.orderStatusTextView);
 
+        Cancellbtn = findViewById(R.id.CancellButton);
+        Acceptbtn = findViewById(R.id.CheckButton);
+
 
         Intent intent = getIntent();
 
@@ -34,7 +42,7 @@ public class OrderDetails_user extends AppCompatActivity {
         String orderStatus = intent.getStringExtra("orderStatus");
 
 
-        orderIdTextView.setText("Order ID: " + orderId);
+
         carTypeTextView.setText("Car Type: " + carType);
         sparePartTextView.setText("Spare Part: " + sparePart);
         priceRangeTextView.setText("Price Range: " + priceRange);

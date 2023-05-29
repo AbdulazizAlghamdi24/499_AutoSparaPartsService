@@ -14,9 +14,8 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         Button startbtn = findViewById(R.id.Startbtn);
-        Button getLocation =findViewById(R.id.getLocation);
+
 
         startbtn.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this,MainActivity.class)));
-        getLocation.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this,LocationActivity.class)));
     }
 }
