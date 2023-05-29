@@ -48,6 +48,8 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatMessage> chatMessages;
     private ChatAdapter chatAdapter;
     private RequestQueue requestQueue; // Volley request queue
+    private String conversationHistory = "Pretend you are an AI assistant for cars and car maintenance and spare parts expert.";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,10 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessageToServer(String message) {
+    private void sendMessageToServer(String userMessage) {
+        // Append the new user message to the conversation history
+        conversationHistory += "\nUser: " + userMessage + "\nAI Assistant:";
+
         new Thread(() -> {
             try {
                 URL url = new URL("https://chatai-499-api.herokuapp.com/"); // Replace with your server URL
@@ -93,7 +98,7 @@ public class ChatActivity extends AppCompatActivity {
                 conn.setDoInput(true);
 
                 JSONObject jsonParam = new JSONObject();
-                jsonParam.put("message", message);
+                jsonParam.put("message", conversationHistory);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                 os.writeBytes(jsonParam.toString());
@@ -118,6 +123,10 @@ public class ChatActivity extends AppCompatActivity {
                     try {
                         JSONObject responseObject = new JSONObject(sb.toString());
                         String responseMessage = responseObject.getString("message");
+
+                        // Append the AI's response to the conversation history
+                        conversationHistory += "\n" + responseMessage;
+
                         chatMessages.add(new ChatMessage(responseMessage, false));
                         chatAdapter.notifyDataSetChanged();
                     } catch (Exception e) {

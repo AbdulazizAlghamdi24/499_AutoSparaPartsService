@@ -13,43 +13,45 @@ import com.example.sparepart2.R;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
-
     private List<ChatMessage> chatMessages;
 
     public ChatAdapter(List<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
-    public class ChatViewHolder extends RecyclerView.ViewHolder {
-        public TextView messageTextView;
-
-        public ChatViewHolder(@NonNull View itemView) {
-            super(itemView);
-            messageTextView = itemView.findViewById(R.id.tvMessage);
-        }
-    }
-
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_chat_message, parent, false);
-        return new ChatViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
+        return new ChatViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         ChatMessage chatMessage = chatMessages.get(position);
-        holder.messageTextView.setText(chatMessage.getMessage());
-        if (chatMessage.isUser()) {
-            holder.messageTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+        holder.tvMessage.setText(chatMessage.getMessage());
+
+        // Set the name depending on whether the message is from the user or the AI
+        if (chatMessage.isFromUser()) {
+            holder.tvName.setText("User:");
         } else {
-            holder.messageTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            holder.tvName.setText("AI:");
         }
     }
 
     @Override
     public int getItemCount() {
         return chatMessages.size();
+    }
+
+    public class ChatViewHolder extends RecyclerView.ViewHolder {
+        TextView tvMessage;
+        TextView tvName;
+
+        public ChatViewHolder(View itemView) {
+            super(itemView);
+            tvMessage = itemView.findViewById(R.id.tvMessage);
+            tvName = itemView.findViewById(R.id.tvName);
+        }
     }
 }

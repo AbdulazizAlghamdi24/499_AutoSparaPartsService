@@ -2,26 +2,18 @@ package com.example.sparepart2.ChatHandling;
 
 public class ChatMessage {
     private String message;
-    private boolean isUser;
+    private boolean isFromUser;
 
-    public ChatMessage(String message, boolean isUser) {
+    public ChatMessage(String message, boolean isFromUser) {
         this.message = message;
-        this.isUser = isUser;
+        this.isFromUser = isFromUser;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public boolean isUser() {
-        return isUser;
-    }
-
-    public void setUser(boolean user) {
-        isUser = user;
+    public boolean isFromUser() {
+        return isFromUser;
     }
 }
