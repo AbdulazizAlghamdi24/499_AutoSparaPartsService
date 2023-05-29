@@ -25,8 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sparepart2.Registration.LoginPage;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.location.FusedLocationProviderClient;
+//import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONException;
@@ -41,20 +41,20 @@ import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Locale;
-
+/*
 public class LocationActivity extends AppCompatActivity {
     private static final int REQUEST_LOCATION_PERMISSION = 100;
     private Button Locationbtn;
     private TextView locationview;
-    private FusedLocationProviderClient fusedLocationClient;
+    //private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+       // fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+/*
         Locationbtn = findViewById(R.id.locationbtn);
         locationview = findViewById(R.id.locationview);
         Locationbtn.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
-    private void getLocation() {
+    /*private void getLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation()
@@ -178,4 +178,5 @@ public class LocationActivity extends AppCompatActivity {
             }
         }
     }
-}
+
+     */

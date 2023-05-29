@@ -22,8 +22,23 @@ import com.example.sparepart2.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -67,40 +82,51 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessageToServer(String message) {
-        String url = "https://chatai-499-api.herokuapp.com/"; // Replace with your server URL
-        JSONObject postData = new JSONObject();
-        try {
-            postData.put("message", message);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                URL url = new URL("https://chatai-499-api.herokuapp.com/"); // Replace with your server URL
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // Extract the AI assistant's message from the response
-                            String responseMessage = response.getString("message");
-                            // Add the response to the chat
-                            chatMessages.add(new ChatMessage(responseMessage, false));
-                            chatAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("message", message);
+
+                DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                os.writeBytes(jsonParam.toString());
+
+                os.flush();
+                os.close();
+
+                BufferedReader br;
+                if (200 <= conn.getResponseCode() && conn.getResponseCode() <= 299) {
+                    br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                }
+
+                StringBuilder sb = new StringBuilder();
+                String output;
+                while ((output = br.readLine()) != null) {
+                    sb.append(output);
+                }
+
+                runOnUiThread(() -> {
+                    try {
+                        JSONObject responseObject = new JSONObject(sb.toString());
+                        String responseMessage = responseObject.getString("message");
+                        chatMessages.add(new ChatMessage(responseMessage, false));
+                        chatAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Handle error
-                Toast.makeText(ChatActivity.this, "An error occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-
-        // Clear the cache
-        requestQueue.getCache().clear();
-
-        // Add the request to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
+        }).start();
     }
 }
