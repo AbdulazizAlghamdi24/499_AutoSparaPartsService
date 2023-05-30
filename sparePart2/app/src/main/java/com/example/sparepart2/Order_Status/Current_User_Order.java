@@ -12,9 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.sparepart2.MainActivity;
 import com.example.sparepart2.OrderHandling.Order;
-import com.example.sparepart2.OrderHandling.OrderAdapter;
+import com.example.sparepart2.OrderHandling.OrderAdapter_ongoing;
 import com.example.sparepart2.R;
 import com.example.sparepart2.Registration.LoginPage;
 
@@ -35,7 +34,7 @@ import java.util.List;
 public class Current_User_Order extends AppCompatActivity {
 
     private RecyclerView orderRecyclerView;
-    private OrderAdapter orderAdapter;
+    private OrderAdapter_ongoing orderAdapterUser;
     private String userId;
 
     @Override
@@ -151,8 +150,8 @@ public class Current_User_Order extends AppCompatActivity {
                         }
 
                         // Set up the RecyclerView adapter
-                        orderAdapter = new OrderAdapter(orders);
-                        orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+                        orderAdapterUser = new OrderAdapter_ongoing(orders);
+                        orderAdapterUser.setOnItemClickListener(new OrderAdapter_ongoing.OnItemClickListener() {
                             @Override
                             public void onItemClick(Order order) {
                                 // Handle item click event
@@ -170,7 +169,7 @@ public class Current_User_Order extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-                        orderRecyclerView.setAdapter(orderAdapter);
+                        orderRecyclerView.setAdapter(orderAdapterUser);
                     } else {
                         // No orders found for the user
                         Toast.makeText(Current_User_Order.this, "No orders found for the user.", Toast.LENGTH_SHORT).show();

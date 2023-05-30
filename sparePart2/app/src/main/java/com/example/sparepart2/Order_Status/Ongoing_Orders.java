@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.sparepart2.OrderHandling.Order;
-import com.example.sparepart2.OrderHandling.OrderAdapter;
+import com.example.sparepart2.OrderHandling.OrderAdapter_ongoing;
 import com.example.sparepart2.R;
 
 import org.json.JSONArray;
@@ -32,7 +32,7 @@ import java.util.List;
 public class Ongoing_Orders extends AppCompatActivity {
 
     private RecyclerView orderRecyclerView;
-    private OrderAdapter orderAdapter;
+    private OrderAdapter_ongoing orderAdapterOngoing;
     private Button loadMoreButton;
     private int currentPage = 1;
 
@@ -120,13 +120,13 @@ public class Ongoing_Orders extends AppCompatActivity {
                             String orderTime = orderObject.getString("created_at");
                             String orderStatus = orderObject.getString("status");
                             String userPhoneNumber = orderObject.getString("phone_number");
-                            Order order = new Order(orderId, carType,CarModel, CarYear, sparePart,"", priceRange, orderTime, orderStatus, userPhoneNumber);
+                            Order order = new Order(orderId, carType,CarModel, CarYear, sparePart,ExtraDetails, priceRange, orderTime, orderStatus, userPhoneNumber);
                             newOrders.add(order);
                         }
 
-                        if (orderAdapter == null) {
-                            orderAdapter = new OrderAdapter(newOrders);
-                            orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+                        if (orderAdapterOngoing == null) {
+                            orderAdapterOngoing = new OrderAdapter_ongoing(newOrders);
+                            orderAdapterOngoing.setOnItemClickListener(new OrderAdapter_ongoing.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(Order order) {
                                     Intent intent = new Intent(Ongoing_Orders.this, OrderDetails.class);
@@ -143,9 +143,9 @@ public class Ongoing_Orders extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            orderRecyclerView.setAdapter(orderAdapter);
+                            orderRecyclerView.setAdapter(orderAdapterOngoing);
                         } else {
-                            orderAdapter.addOrders(newOrders);
+                            orderAdapterOngoing.addOrders(newOrders);
                         }
                     }
 

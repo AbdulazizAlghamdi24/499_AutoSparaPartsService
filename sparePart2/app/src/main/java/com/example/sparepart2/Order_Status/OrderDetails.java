@@ -40,12 +40,14 @@ public class OrderDetails extends AppCompatActivity {
         TextView orderTimeTextView = findViewById(R.id.orderTimeTextView);
         TextView orderStatusTextView = findViewById(R.id.orderStatusTextView);
         TextView phoneNumberTextView = findViewById(R.id.PhoneNumber);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView extra_detailsTextView = findViewById(R.id.extra_detailsTextView);
 
         Intent intent = getIntent();
 
         String orderId = intent.getStringExtra("orderId");
         String carType = intent.getStringExtra("carType");
         String sparePart = intent.getStringExtra("sparePart");
+        String ExtraDetails = intent.getStringExtra("ExtraDetails");
         String priceRange = intent.getStringExtra("priceRange");
         String orderTime = intent.getStringExtra("orderTime");
         String orderStatus = intent.getStringExtra("orderStatus");
@@ -54,6 +56,7 @@ public class OrderDetails extends AppCompatActivity {
         orderIdTextView.setText("Order ID: " + orderId);
         carTypeTextView.setText("Car Type: " + carType);
         sparePartTextView.setText("Spare Part: " + sparePart);
+        extra_detailsTextView.setText("Extra Details:  "+ExtraDetails);
         priceRangeTextView.setText("Price Range: " + priceRange);
         orderTimeTextView.setText("Order Time: " + orderTime);
         orderStatusTextView.setText("Order Status: " + orderStatus);
