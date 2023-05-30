@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -33,9 +35,6 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LocationActivity"
-            android:exported="false" />
-        <activity
             android:name=".Order_Status.OrderDetails_user"
             android:exported="false" />
         <activity
@@ -46,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".Order_Status.OrderDetails"
-            android:exported="false" />
-        <activity
-            android:name=".IntroActivity"
             android:exported="false" />
         <activity
             android:name=".OrderHandling.OrderPage"

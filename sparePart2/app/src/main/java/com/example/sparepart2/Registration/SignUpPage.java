@@ -15,7 +15,8 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 
-import com.example.sparepart2.IntroActivity;
+//import com.example.sparepart2.ApiHandling.SignupApi;
+import com.example.sparepart2.MainActivity;
 import com.example.sparepart2.R;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -139,10 +140,7 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-                // If all validations pass, proceed with signup process
-                // ...
 
-                // Create an instance of SignupTask and execute it
                 SignupTask signupTask = new SignupTask();
                 signupTask.execute(username, password, phone, email);
             }
@@ -236,7 +234,7 @@ public class SignUpPage extends AppCompatActivity {
                         editor.putString(LoginPage.Phone_Number, phone_number);  // Save phone number
                         editor.apply();
 
-                        Intent intent = new Intent(SignUpPage.this, IntroActivity.class);
+                        Intent intent = new Intent(SignUpPage.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }

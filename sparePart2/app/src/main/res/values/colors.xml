@@ -11,4 +11,7 @@
     <color name="theme_color">#2176FF</color>
     <color name="theme_color_10">#142176FF</color>
     <color name="lavender">#8692f7</color>
+    <color name="userMessageColor">#00C853</color>
+    <color name="aiMessageColor">#2979FF</color>
+
 </resources>

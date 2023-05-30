@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/clothingName"
                         android:text="Create Order"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/ongoing_View"
                         android:text="Ongoing Orders"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/user_orders_view"
                         android:text="Your Orders"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"
@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/dmg_view"
                         android:text="Damage Detection"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"
@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/Chat_view"
                         android:text="ChatAi"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"
@@ -244,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/grocName"
                         android:text="Profile"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textColor="@color/purple_500"
 
                         android:layout_marginTop="10dp"

@@ -197,16 +197,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             Pair<List<Damage>, String> result = parseJson(response);
-            List<Damage> damages = result.first;
-            String outputUrl = result.second;
+            if (result != null) {
+                List<Damage> damages = result.first;
+                String outputUrl = result.second;
 
-            String damageString = formatDamageList(damages);
+                String damageString = formatDamageList(damages);
 
-            Intent intent = new Intent(MainActivity.this, RecoDetailsPage.class);
-            intent.putExtra("apiResult", damageString);
-            intent.putExtra("imageUrl", imageUrl);
-            intent.putExtra("outputUrl", outputUrl);
-            startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, RecoDetailsPage.class);
+                intent.putExtra("apiResult", damageString);
+                intent.putExtra("imageUrl", imageUrl);
+                intent.putExtra("outputUrl", outputUrl);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "Unqualified image", Toast.LENGTH_SHORT).show();
+            }
         }
 
         private Pair<List<Damage>, String> parseJson(String jsonString) {
