@@ -33,6 +33,11 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/extra_detailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
         android:id="@+id/priceRangeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

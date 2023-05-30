@@ -28,11 +28,20 @@
 
 
     <Button
-        android:id="@+id/btnLoadMore"
+        android:id="@+id/loadMoreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Load More"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/purple_700"
+        android:textColor="@android:color/white"
+        android:elevation="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"/>
+
 
 
 </RelativeLayout>

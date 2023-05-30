@@ -141,11 +141,12 @@ public class Current_User_Order extends AppCompatActivity {
                             String carType = orderObject.getString("type");
                             String CarModel = orderObject.getString("model");
                             String sparePart = orderObject.getString("spare_part");
+                            String ExtraDetails = orderObject.getString("extra_details");
                             String CarYear = orderObject.getString("year");
                             String priceRange = orderObject.getString("price_range");
                             String orderTime = orderObject.getString("created_at");
                             String orderStatus = orderObject.getString("status");
-                            Order order = new Order("", carType,CarModel, CarYear, sparePart, priceRange, orderTime, orderStatus, "");
+                            Order order = new Order("", carType,CarModel, CarYear, sparePart,ExtraDetails, priceRange, orderTime, orderStatus, "");
                             orders.add(order);
                         }
 
@@ -161,6 +162,7 @@ public class Current_User_Order extends AppCompatActivity {
                                 intent.putExtra("CarModel",order.getCarModel());
                                 intent.putExtra("CarYear",order.getCarYear());
                                 intent.putExtra("sparePart", order.getSparePart());
+                                intent.putExtra("ExtraDetails",order.getExtraDetails());
                                 intent.putExtra("priceRange", order.getPriceRange());
                                 intent.putExtra("orderTime", order.getOrderTime());
                                 intent.putExtra("orderStatus", order.getOrderStatus());

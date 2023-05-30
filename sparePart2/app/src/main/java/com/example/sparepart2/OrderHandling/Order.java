@@ -12,7 +12,9 @@ public class Order {
 
     private String CarModel;
 
-    public Order(String orderId,String CarType, String CarModel, String CarYear, String SparePart,String PriceRange,String orderTime, String orderStatus, String userPhoneNumber) {
+    private String ExtraDetails;
+
+    public Order(String orderId,String CarType, String CarModel, String CarYear, String SparePart,String ExtraDetails,String PriceRange,String orderTime, String orderStatus, String userPhoneNumber) {
         this.orderId = orderId;
         this.CarType = CarType;
         this.SparePart = SparePart;
@@ -22,6 +24,7 @@ public class Order {
          this.userPhoneNumber=userPhoneNumber;
          this.CarYear = CarYear;
          this.CarModel = CarModel;
+         this.ExtraDetails = ExtraDetails;
     }
 
     public String getOrderId() {
@@ -55,4 +58,6 @@ public class Order {
     public String getCarModel(){
         return CarModel;
     }
+
+    public String getExtraDetails(){ return  ExtraDetails;}
 }

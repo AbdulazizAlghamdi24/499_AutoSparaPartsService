@@ -45,6 +45,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orderList.size();
     }
 
+    public void addOrders(List<Order> newOrders) {
+        int startPos = orderList.size();
+        orderList.addAll(newOrders);
+        notifyItemRangeInserted(startPos, newOrders.size());
+    }
     public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView carTypeTextView;
         private TextView sparePartTextView;
@@ -55,6 +60,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         private TextView carYearTextView;
         private TextView carModelTextView;
+        private TextView extra_detailsTextView;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +73,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderStatusTextView = itemView.findViewById(R.id.orderStatusTextView);
             userPhoneNumberTextView = itemView.findViewById(R.id.userPhoneNumberTextView);
             carModelTextView = itemView.findViewById(R.id.carModelTextView);
+            extra_detailsTextView = itemView.findViewById(R.id.extra_detailsTextView);
+
 
 
             itemView.setOnClickListener(this);
@@ -79,6 +87,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             carModelTextView.setText("Car Model:  "+order.getCarModel());
             carYearTextView.setText("Car Year:  "+order.getCarYear());
             sparePartTextView.setText("Wanted Spare Part:  "+order.getSparePart());
+            extra_detailsTextView.setText("Extra Details:  "+order.getExtraDetails());
             priceRangeTextView.setText("Price Range:  "+order.getPriceRange());
             orderTimeTextView.setText("Order Date:  "+order.getOrderTime());
             orderStatusTextView.setText("Order Status:  "+order.getOrderStatus());
