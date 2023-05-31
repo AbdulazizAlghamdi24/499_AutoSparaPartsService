@@ -63,7 +63,7 @@ public class Ongoing_Orders extends AppCompatActivity {
         @Override
         protected String doInBackground(Integer... params) {
             try {
-                URL url = new URL("http://192.168.0.248/499_spareparts/ongoing_orders.php");
+                URL url = new URL("https://spare-parts-php.herokuapp.com/ongoing_orders.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

@@ -1,5 +1,6 @@
 package com.example.sparepart2.Registration;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -133,6 +134,7 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LoginTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
