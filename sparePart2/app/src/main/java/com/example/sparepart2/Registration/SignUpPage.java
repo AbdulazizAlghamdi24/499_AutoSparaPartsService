@@ -105,7 +105,7 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-                // Validate email format using a regular expression
+
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if (!email.matches(emailPattern)) {
                     emailEditText.setError("Invalid email format");
@@ -119,7 +119,7 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-                // Check if password length is less than 6 characters
+
                 if (password.length() < 6) {
                     passwordEditText.setError("Password should be at least 6 characters long");
                     passwordEditText.requestFocus();
@@ -132,7 +132,7 @@ public class SignUpPage extends AppCompatActivity {
                     return;
                 }
 
-// Validate phone number format using a regular expression for Saudi numbers
+
                 String phonePattern = "^05\\d{8}$";
                 if (!phone.matches(phonePattern)) {
                     phoneEditText.setError("Invalid Saudi phone number. Must be in format 05XXXXXXXX");
@@ -229,9 +229,9 @@ public class SignUpPage extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(LoginPage.IS_LOGGED_IN, true);
                         editor.putString(LoginPage.USER_ID, userId);
-                        editor.putString(LoginPage.USERNAME, username);  // Save username
-                        editor.putString(LoginPage.EMAIL, email);  // Save email
-                        editor.putString(LoginPage.Phone_Number, phone_number);  // Save phone number
+                        editor.putString(LoginPage.USERNAME, username);
+                        editor.putString(LoginPage.EMAIL, email);
+                        editor.putString(LoginPage.Phone_Number, phone_number);
                         editor.apply();
 
                         Intent intent = new Intent(SignUpPage.this, MainActivity.class);

@@ -4,18 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sparepart2.Registration.LoginPage;
-import com.example.sparepart2.bottomNav.BottomNavigationHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public class Settings extends AppCompatActivity {
 
 

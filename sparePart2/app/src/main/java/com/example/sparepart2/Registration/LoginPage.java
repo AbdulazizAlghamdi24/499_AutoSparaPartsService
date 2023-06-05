@@ -64,7 +64,7 @@ public class LoginPage extends AppCompatActivity {
         loginButton = findViewById(R.id.LoginButton);
         signUpTextView = findViewById(R.id.signUpTextView);
 
-        // Set the click listener for the login button
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class LoginPage extends AppCompatActivity {
                     return;
                 }
 
-                // Validate email format using a regular expression
+
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if (!email.matches(emailPattern)) {
                     emailTextInput.setError("Invalid email format");
@@ -108,6 +108,8 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+
+
     private void checkBox() throws GeneralSecurityException, IOException {
         String masterKeyAlias = null;
         try {
@@ -124,8 +126,10 @@ public class LoginPage extends AppCompatActivity {
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         );
 
+        // indicates if the user is logged in and USER_ID is a string that stores the user's ID.
         boolean isLoggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN, false);
         String userId = sharedPreferences.getString(USER_ID, "0");
+        // checking if the user is already logged in
         if (isLoggedIn) {
             Intent intent = new Intent(LoginPage.this, MainActivity.class);
             intent.putExtra("id", userId);
@@ -135,9 +139,11 @@ public class LoginPage extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
+
     private class LoginTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
+            // // Create a JSON object to hold login credentials
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("email", params[0]);
@@ -151,10 +157,12 @@ public class LoginPage extends AppCompatActivity {
             try {
                 URL url = new URL(loginUrl);
                 urlConnection = (HttpURLConnection) url.openConnection();
+                // Set up the connection for a POST request
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setDoOutput(true);
 
+                // Write the JSON object
                 OutputStream outputStream = urlConnection.getOutputStream();
                 outputStream.write(jsonObject.toString().getBytes("UTF-8"));
                 outputStream.close();
@@ -219,10 +227,11 @@ public class LoginPage extends AppCompatActivity {
                                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                         );
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+                        // Save the user's login status, ID, username, email, and phone number in the SharedPreferences
                         editor.putBoolean(IS_LOGGED_IN, true);
                         editor.putString(USER_ID, userId);
-                        editor.putString(USERNAME, username);  // Save username
-                        editor.putString(EMAIL, email);  // Save email
+                        editor.putString(USERNAME, username);
+                        editor.putString(EMAIL, email);
                         editor.putString(Phone_Number,phone_number);
                         editor.apply();
 

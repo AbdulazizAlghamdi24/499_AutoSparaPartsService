@@ -7,30 +7,19 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
-
-
 import com.example.sparepart2.MainActivity;
-import com.example.sparepart2.Profile;
 import com.example.sparepart2.R;
 import com.example.sparepart2.Registration.LoginPage;
-import com.example.sparepart2.Settings;
-import com.example.sparepart2.bottomNav.BottomNavigationHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -82,7 +71,7 @@ public class OrderPage extends AppCompatActivity {
         extra_details = findViewById(R.id.extra_details);
         price_range = findViewById(R.id.price_range);
         createOrderButton = findViewById(R.id.createOrderButton);
-        // Handle "Create Order" button click
+
         createOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,7 +203,7 @@ public class OrderPage extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     String message = jsonResponse.getString("message");
 
-                    if (message.equals("Order created successfully.")) { // Modify this to match the exact success message from your server
+                    if (message.equals("Order created successfully.")) {
                         showSuccessDialog(message);
                     } else {
                         Toast.makeText(OrderPage.this, message, Toast.LENGTH_SHORT).show();

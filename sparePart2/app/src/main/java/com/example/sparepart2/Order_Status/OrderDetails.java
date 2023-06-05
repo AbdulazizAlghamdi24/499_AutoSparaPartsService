@@ -62,22 +62,14 @@ public class OrderDetails extends AppCompatActivity {
         orderStatusTextView.setText("Order Status: " + orderStatus);
         phoneNumberTextView.setText("Phone Number " + PhoneNumber);
 
-        chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://wa.me/" +"966"+ PhoneNumber; // PhoneNumber should be in international format without + or 00
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
+        chatButton.setOnClickListener(v -> {
+            String url = "https://wa.me/" +"966"+ PhoneNumber;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         });
 
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makePhoneCall();
-            }
-        });
+        callButton.setOnClickListener(v -> makePhoneCall());
     }
 
     private void makePhoneCall() {

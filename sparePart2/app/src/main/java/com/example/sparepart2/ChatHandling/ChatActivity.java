@@ -1,25 +1,17 @@
 package com.example.sparepart2.ChatHandling;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sparepart2.R;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -29,16 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -59,26 +41,22 @@ public class ChatActivity extends AppCompatActivity {
         etMessage = findViewById(R.id.etMessage);
         btnSend = findViewById(R.id.btnSend);
         rvChat = findViewById(R.id.rvChat);
-        requestQueue = Volley.newRequestQueue(this); // Initialize the RequestQueue
-
+        requestQueue = Volley.newRequestQueue(this);
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(chatMessages);
         rvChat.setAdapter(chatAdapter);
         rvChat.setLayoutManager(new LinearLayoutManager(this));
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String message = etMessage.getText().toString();
-                if (!message.trim().isEmpty()) {
-                    // Add the user's message to the chat
-                    chatMessages.add(new ChatMessage(message, true));
-                    chatAdapter.notifyDataSetChanged();
-                    etMessage.setText("");
+        btnSend.setOnClickListener(v -> {
+            String message = etMessage.getText().toString();
+            if (!message.trim().isEmpty()) {
+                // Add the user's message to the chat
+                chatMessages.add(new ChatMessage(message, true));
+                chatAdapter.notifyDataSetChanged();
+                etMessage.setText("");
 
-                    // Send the message to the server and get a response
-                    sendMessageToServer(message);
-                }
+                // Send the message to the server and get a response
+                sendMessageToServer(message);
             }
         });
     }
@@ -89,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                URL url = new URL("https://chatai-499-api.herokuapp.com/"); // Replace with your server URL
+                URL url = new URL("https://chatai-499-api.herokuapp.com/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

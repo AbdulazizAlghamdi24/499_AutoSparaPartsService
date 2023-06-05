@@ -50,30 +50,122 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/PhoneNumber"
         android:orientation="horizontal"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/CancellButton"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/wrongicon"
-            android:background="@android:color/transparent"
-            android:layout_marginRight="16dp"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_margin="8dp">
 
-        <ImageButton
-            android:id="@+id/CheckButton"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/checkicon"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="16dp"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"/>
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/border">
+
+                <ImageButton
+                    android:id="@+id/CancellButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/wrongicon"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:adjustViewBounds="true"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_margin="8dp">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/border">
+
+                <ImageButton
+                    android:id="@+id/CheckButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/checkicon2"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:adjustViewBounds="true"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complete"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_margin="8dp">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/border">
+
+                <ImageButton
+                    android:id="@+id/Onholdbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/onhold"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:adjustViewBounds="true"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On hold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_margin="8dp">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/border">
+
+                <ImageButton
+                    android:id="@+id/Activatebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/activeuser"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:adjustViewBounds="true"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active"/>
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </LinearLayout>

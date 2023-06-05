@@ -8,50 +8,35 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Pair;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
-
-
 import com.example.sparepart2.ChatHandling.ChatActivity;
 import com.example.sparepart2.Order_Status.Current_User_Order;
 import com.example.sparepart2.Order_Status.Ongoing_Orders;
 import com.example.sparepart2.OrderHandling.OrderPage;
 import com.example.sparepart2.Recogniton.Damage;
+import com.example.sparepart2.Recogniton.RecoDetailsPage;
 import com.example.sparepart2.Registration.LoginPage;
-import com.example.sparepart2.bottomNav.BottomNavigationHelper;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 101;
@@ -87,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
         String masterKeyAlias;
         try {
             masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -109,12 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Api_recognizer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        Api_recognizer.setOnClickListener(v -> openGallery());
     }
 
     private void openGallery() {
@@ -126,33 +109,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+
+            // Get the URI of the selected image
             Uri selectedImageUri = data.getData();
+            // Start the upload of the image to Firebase Storage
             uploadImage(selectedImageUri);
         }
     }
 
+//  upload an image to Firebase Storage
     private void uploadImage(Uri imageUri) {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference imageRef = storageReference.child("images/" + UUID.randomUUID().toString());
 
         imageRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                new ApiRequestTask(uri.toString()).execute();
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(MainActivity.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> new ApiRequestTask(uri.toString()).execute()))
+                .addOnFailureListener(exception -> Toast.makeText(MainActivity.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private class ApiRequestTask extends AsyncTask<Void, Void, String> {

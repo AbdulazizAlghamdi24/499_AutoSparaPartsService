@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">sparePart2</string>
     <string name="select_car_part_prompt">Select Car Part</string>
-
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="action_search">Search</string>
 </resources>

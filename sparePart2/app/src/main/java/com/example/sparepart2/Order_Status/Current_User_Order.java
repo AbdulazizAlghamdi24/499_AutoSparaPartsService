@@ -144,9 +144,12 @@ public class Current_User_Order extends AppCompatActivity {
                             String CarYear = orderObject.getString("year");
                             String priceRange = orderObject.getString("price_range");
                             String orderTime = orderObject.getString("created_at");
+
                             String orderStatus = orderObject.getString("status");
-                            Order order = new Order("", carType,CarModel, CarYear, sparePart,ExtraDetails, priceRange, orderTime, orderStatus, "");
+
+                            Order order = new Order(orderId, carType,CarModel, CarYear, sparePart,ExtraDetails, priceRange, orderTime, orderStatus, "");
                             orders.add(order);
+
                         }
 
                         // Set up the RecyclerView adapter

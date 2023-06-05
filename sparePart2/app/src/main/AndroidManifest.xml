@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logohd"
+        android:icon="@drawable/lohohd2"
         android:label="Auto SpareParts Services"
         android:supportsRtl="true"
         android:theme="@style/Theme.SparePart2"
@@ -41,7 +41,7 @@
             android:name=".Order_Status.Current_User_Order"
             android:exported="false" />
         <activity
-            android:name=".RecoDetailsPage"
+            android:name=".Recogniton.RecoDetailsPage"
             android:exported="false" />
         <activity
             android:name=".Order_Status.OrderDetails"

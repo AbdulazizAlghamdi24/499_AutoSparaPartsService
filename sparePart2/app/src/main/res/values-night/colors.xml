@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#0F2850</color> <!-- A darker shade of your purple -->
+    <color name="purple_500">#0F2850</color>
+    <color name="purple_700">#0F2850</color>
+    <color name="teal_200">#01363D</color> <!-- A darker shade of your teal -->
+    <color name="teal_700">#01363D</color>
+    <color name="black">#FFFFFF</color> <!-- Black text becomes white in dark mode -->
+    <color name="white">#000000</color> <!-- White background becomes black in dark mode -->
+    <color name="Green">#006600</color> <!-- A darker shade of green -->
+    <color name="theme_color">#0F2850</color> <!-- A darker shade of your theme color -->
+    <color name="theme_color_10">#0A1E40</color> <!-- A darker shade of your theme color 10 -->
+    <color name="lavender">#4F4F92</color> <!-- A darker shade of lavender -->
+    <color name="userMessageColor">#006600</color> <!-- A darker shade of userMessageColor -->
+    <color name="aiMessageColor">#144080</color> <!-- A darker shade of aiMessageColor -->
+</resources>

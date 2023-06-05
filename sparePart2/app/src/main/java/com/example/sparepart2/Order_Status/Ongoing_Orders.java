@@ -1,16 +1,15 @@
 package com.example.sparepart2.Order_Status;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sparepart2.OrderHandling.Order;
 import com.example.sparepart2.OrderHandling.OrderAdapter_ongoing;
@@ -49,15 +48,13 @@ public class Ongoing_Orders extends AppCompatActivity {
         FetchOrdersTask fetchOrdersTask = new FetchOrdersTask();
         fetchOrdersTask.execute(currentPage);
 
-        loadMoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FetchOrdersTask fetchMoreOrdersTask = new FetchOrdersTask();
-                fetchMoreOrdersTask.execute(++currentPage);
-            }
+        loadMoreButton.setOnClickListener(v -> {
+            FetchOrdersTask fetchMoreOrdersTask = new FetchOrdersTask();
+            fetchMoreOrdersTask.execute(++currentPage);
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class FetchOrdersTask extends AsyncTask<Integer, Void, String> {
 
         @Override
@@ -126,22 +123,19 @@ public class Ongoing_Orders extends AppCompatActivity {
 
                         if (orderAdapterOngoing == null) {
                             orderAdapterOngoing = new OrderAdapter_ongoing(newOrders);
-                            orderAdapterOngoing.setOnItemClickListener(new OrderAdapter_ongoing.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(Order order) {
-                                    Intent intent = new Intent(Ongoing_Orders.this, OrderDetails.class);
-                                    intent.putExtra("orderId", order.getOrderId());
-                                    intent.putExtra("carType", order.getCarType());
-                                    intent.putExtra("CarModel",order.getCarModel());
-                                    intent.putExtra("CarYear", order.getCarYear());
-                                    intent.putExtra("sparePart", order.getSparePart());
-                                    intent.putExtra("ExtraDetails",order.getExtraDetails());
-                                    intent.putExtra("priceRange", order.getPriceRange());
-                                    intent.putExtra("orderTime", order.getOrderTime());
-                                    intent.putExtra("orderStatus", order.getOrderStatus());
-                                    intent.putExtra("phone_number" , order.getUserPhoneNumber());
-                                    startActivity(intent);
-                                }
+                            orderAdapterOngoing.setOnItemClickListener(order -> {
+                                Intent intent = new Intent(Ongoing_Orders.this, OrderDetails.class);
+                                intent.putExtra("orderId", order.getOrderId());
+                                intent.putExtra("carType", order.getCarType());
+                                intent.putExtra("CarModel",order.getCarModel());
+                                intent.putExtra("CarYear", order.getCarYear());
+                                intent.putExtra("sparePart", order.getSparePart());
+                                intent.putExtra("ExtraDetails",order.getExtraDetails());
+                                intent.putExtra("priceRange", order.getPriceRange());
+                                intent.putExtra("orderTime", order.getOrderTime());
+                                intent.putExtra("orderStatus", order.getOrderStatus());
+                                intent.putExtra("phone_number" , order.getUserPhoneNumber());
+                                startActivity(intent);
                             });
                             orderRecyclerView.setAdapter(orderAdapterOngoing);
                         } else {

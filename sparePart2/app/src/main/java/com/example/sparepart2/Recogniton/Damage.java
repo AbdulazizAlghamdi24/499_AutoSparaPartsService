@@ -4,7 +4,7 @@ public class Damage {
     private String damageCategory;
     private String damageLocation;
     private double score;
-    private String drawResult; // Assume the API returns a URL
+    private String drawResult;
 
     public Damage(String damageCategory, String damageLocation , Double score, String drawResult){
         this.damageCategory = damageCategory;
